@@ -1,0 +1,100 @@
+art() {
+  if [ -f bin/artisan ]; then
+    php bin/artisan "$@"
+  elif [ -f vendor/bin/testbench ]; then
+	./vendor/bin/testbench "$@"
+  else
+    php artisan "$@"
+  fi
+}
+
+alias tinker='artisan tinker'
+
+# Misc PHP
+
+test() {
+  if [ -f artisan ]; then
+    php artisan test --parallel "$@"
+  elif [ -f vendor/bin/pest ]; then
+    vendor/bin/pest "$@"
+  elif [ -f vendor/bin/phpunit ]; then
+    vendor/bin/phpunit "$@"
+  fi
+}
+
+phpunit() {
+  vendor/bin/phpunit "$@"
+}
+
+ng() {
+  if [ -f node_modules/@angular/cli/bin/ng ]; then
+    node_modules/@angular/cli/bin/ng "$@"
+  fi
+}
+
+alias nah='git reset --hard;git clean -df'
+alias migrate="php artisan migrate"
+alias mfs="php artisan migrate:fresh --seed"
+alias rollback="php artisan migrate:rollback"
+alias outdated="composer outdated --direct"
+alias ds="php artisan dump-server"
+alias routes="php artisan route:list --columns=Domain,Method,URI,Name,Action"
+alias route-names="php artisan route:list --columns=URI,Name"
+alias croutes="php artisan route:list --compact"
+alias aliases="cat ~/.aliases"
+alias flushdns="sudo killall -HUP mDNSResponder"
+alias sail="bash vendor/bin/sail"
+
+createdb() {
+    mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE $1;"
+}
+
+backupdb() {
+    mysqldump -h 127.0.0.1 -u root -proot $1 | gzip > $2
+}
+
+restoredb() {
+    mysql -h 127.0.0.1 -u root -proot $1 < $2
+}
+
+killport() {
+    lsof -nt -i4TCP:$1 | tr -s ' ' | cut -d ' ' -f 2 | xargs -L1 kill -9
+}
+
+phpv() {
+    valet stop
+    brew unlink php@7.2 php@7.3 php@7.4 php
+    brew link --force --overwrite $1
+    brew services start $1
+    composer global update
+	rm -f ~/.config/valet/valet.sock
+    valet install
+}
+
+alias php72="phpv php@7.2"
+alias php73="phpv php@7.3"
+alias php74="phpv php@7.4"
+alias php80="phpv php"
+
+alias clear-logs="cat /dev/null > storage/logs/laravel.log"
+
+parallel(){
+    trap "pkill -P $$; kill -INT $$" INT
+
+    count=$1
+    shift
+
+    while read n
+    do
+        "$@" &
+    done < <(seq $((count)))
+    wait
+}
+
+to() {
+   takeout "$@"
+}
+
+phpstan() {
+   vendor/bin/phpstan analyze
+}
