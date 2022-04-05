@@ -66,7 +66,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Open files created with artisan make:* in this editor
-ARTISAN_OPEN_ON_MAKE_EDITOR=pstorm
+ARTISAN_OPEN_ON_MAKE_EDITOR=phpstorm
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
