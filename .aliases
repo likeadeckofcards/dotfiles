@@ -71,10 +71,10 @@ phpv() {
     valet install
 }
 
-alias php72="phpv php@7.2"
-alias php73="phpv php@7.3"
-alias php74="phpv php@7.4"
-alias php80="phpv php"
+#alias php72="phpv php@7.2"
+#alias php73="phpv php@7.3"
+#alias php74="phpv php@7.4"
+#alias php80="phpv php"
 
 alias clear-logs="cat /dev/null > storage/logs/laravel.log"
 
@@ -97,4 +97,30 @@ to() {
 
 phpstan() {
    vendor/bin/phpstan analyze
+}
+
+isolate() {
+	valet isolate $1
+
+	PHP_VERSION=$(echo "$1" | sed -r "s/[@\.]//g")
+	
+	if [ ! -f "/usr/local/bin/$PHP_VERSION" ]; then
+		ln -s $(brew --prefix $1)/bin/php /usr/local/bin/$PHP_VERSION
+	fi
+
+	touch ./php
+	chmod u+x ./php
+	echo "$PHP_VERSION \$@" > ./php
+
+	touch ./composer
+	chmod u+x ./composer
+	echo "$PHP_VERSION \$(which composer) \$@" > ./composer
+}
+
+php() {
+	if [ -f ./php ]; then
+		./php $@
+	else 
+		/usr/local/bin/php $@
+	fi
 }
