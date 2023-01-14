@@ -87,6 +87,9 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Switch to unnatural scrolling
+defaults write com.apple swipescrolldirection -bool false
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
