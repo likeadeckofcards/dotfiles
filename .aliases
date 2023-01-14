@@ -16,14 +16,14 @@ test() {
   if [ -f artisan ]; then
     php artisan test --parallel "$@"
   elif [ -f vendor/bin/pest ]; then
-    vendor/bin/pest "$@"
+    valet php vendor/bin/pest "$@"
   elif [ -f vendor/bin/phpunit ]; then
-    vendor/bin/phpunit "$@"
+    valet php vendor/bin/phpunit "$@"
   fi
 }
 
 phpunit() {
-  vendor/bin/phpunit "$@"
+  valet php vendor/bin/phpunit "$@"
 }
 
 ng() {
@@ -46,15 +46,15 @@ alias flushdns="sudo killall -HUP mDNSResponder"
 alias sail="bash vendor/bin/sail"
 
 createdb() {
-    mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE $1;"
+    mysql -h 127.0.0.1 -u root ${@:2} -e "CREATE DATABASE $1;"
 }
 
 backupdb() {
-    mysqldump -h 127.0.0.1 -u root -proot $1 | gzip > $2
+    mysqldump -h 127.0.0.1 -u root $1 | gzip > $2
 }
 
 restoredb() {
-    mysql -h 127.0.0.1 -u root -proot $1 < $2
+    mysql -h 127.0.0.1 -u root $1 < $2
 }
 
 killport() {
