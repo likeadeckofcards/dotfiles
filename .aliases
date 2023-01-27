@@ -103,7 +103,7 @@ isolate() {
 	valet isolate $1
 
 	PHP_VERSION=$(echo "$1" | sed -r "s/[@\.]//g")
-	
+
 	if [ ! -f "/usr/local/bin/$PHP_VERSION" ]; then
 		ln -s $(brew --prefix $1)/bin/php /usr/local/bin/$PHP_VERSION
 	fi
@@ -120,7 +120,11 @@ isolate() {
 php() {
 	if [ -f ./php ]; then
 		./php $@
-	else 
+	else
 		valet php $@
 	fi
+}
+
+fixscreens() {
+    displayplacer "id:FE41EDD3-3BE5-49CF-B706-26C1377D0666 res:2560x1440 hz:60 color_depth:7 scaling:off origin:(0,0) degree:0" "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1728x1117 hz:120 color_depth:8 scaling:on origin:(-2808,0) degree:0" "id:3C817153-D7A2-4551-8CEB-26527C671A60 res:1080x1920 hz:60 color_depth:8 scaling:off origin:(-1080,-326) degree:90" "id:CABFF43E-EBAD-4128-91FF-9CF4AC04F4FD res:2560x1440 hz:60 color_depth:7 scaling:off origin:(2560,0) degree:0"
 }
