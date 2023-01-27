@@ -121,9 +121,9 @@ then
   source ~/.m6/config
 fi
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH:/Users/michaeldeck/Library/Python/3.9/bin"
 export PATH="/Users/michaeldeck/.ebcli-virtual-env/executables:$PATH"

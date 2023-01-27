@@ -121,6 +121,6 @@ php() {
 	if [ -f ./php ]; then
 		./php $@
 	else 
-		/usr/local/bin/php $@
+		valet php $@
 	fi
 }
