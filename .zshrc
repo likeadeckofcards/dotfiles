@@ -127,3 +127,11 @@ eval "$(pyenv init -)"
 
 export PATH="/opt/homebrew/sbin:$PATH:/Users/michaeldeck/Library/Python/3.9/bin"
 export PATH="/Users/michaeldeck/.ebcli-virtual-env/executables:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/michaeldeck/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
